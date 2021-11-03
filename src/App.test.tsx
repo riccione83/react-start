@@ -4,6 +4,6 @@ import App from "./App";
 
 test("renders Older articles text", () => {
   render(<App />);
-  const linkElement = screen.getByText(/Older articles/i);
+  const linkElement = screen.getByText(/Older albums/i);
   expect(linkElement).toBeInTheDocument();
 });

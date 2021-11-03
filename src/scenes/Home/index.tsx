@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import AlbumListComponent from "./components/Articles";
 import { addTodo, getAlbums, loadAlbums } from "./modules";
@@ -13,27 +13,14 @@ const HomeComponent: React.FC = () => {
     dispatch(loadAlbums());
   }, [dispatch]);
 
-  const [newArticle, setNewArticle] = useState<string | undefined>("");
-
   return (
     <div>
       <div>
         <AlbumListComponent albums={albums} />
         <div>
-          <input
-            placeholder={"Insert a new album"}
-            onChange={(text) => setNewArticle(text.target.value)}
-            value={newArticle}
-          />
+          <input placeholder={"Insert a new album"} onChange={(text) => {}} />
         </div>
-        <button
-          onClick={() => {
-            newArticle && add(newArticle);
-            setNewArticle(undefined);
-          }}
-        >
-          ADD
-        </button>
+        <button onClick={() => {}}>ADD</button>
       </div>
     </div>
   );

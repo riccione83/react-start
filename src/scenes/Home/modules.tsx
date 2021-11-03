@@ -1,15 +1,9 @@
 import { createSelector } from "reselect";
 import { takeEvery, put, all } from "redux-saga/effects";
 import { fetchAlbums } from "../../services/sample";
+import { AlbumType } from "../../Models";
 
 const moduleName = "homeModule";
-
-export interface DataType {
-  userId: string;
-  id: number;
-  title: string;
-  completed: boolean;
-}
 
 export const ADD_TODO = "ADD_TODO";
 export const LOAD_ALBUMS = "LOAD_ALBUMS";
@@ -53,7 +47,7 @@ export const loadSuccess = (
 });
 
 interface State {
-  articles: DataType[];
+  articles: AlbumType[];
 }
 
 const initialState = {

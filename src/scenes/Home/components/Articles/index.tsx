@@ -1,8 +1,8 @@
 import React from "react";
-import { DataType } from "../../modules";
+import { AlbumType } from "../../../../Models";
 
 interface Props {
-  albums: DataType[];
+  albums: AlbumType[];
 }
 
 const AlbumListComponent: React.FC<Props> = ({ albums }: Props) => {
