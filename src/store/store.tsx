@@ -4,6 +4,7 @@ import { combineReducers, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { HomeSagas } from "../scenes/Home/modules";
 import { all } from "redux-saga/effects";
+import { LoginSagas } from "../scenes/Login/modules";
 
 export const composeEnhancers =
   (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
@@ -20,7 +21,7 @@ const store = createStore(
 );
 
 function* rootSaga() {
-  yield all([HomeSagas()]);
+  yield all([HomeSagas(), LoginSagas()]);
 }
 sagaMiddleware.run(rootSaga);
 
