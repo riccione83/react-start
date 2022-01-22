@@ -2,6 +2,7 @@ import { createSelector } from "reselect";
 import { takeEvery, put, all } from "redux-saga/effects";
 import { fetchAlbums } from "../../services/sample";
 import { AlbumType } from "../../Models";
+import { AnyAction } from "redux";
 
 const moduleName = "homeModule";
 
@@ -9,7 +10,7 @@ export const ADD_TODO = "ADD_TODO";
 export const LOAD_ALBUMS = "LOAD_ALBUMS";
 export const LOAD_SUCCESS = "LOAD_SUCCESS";
 
-export interface AddTodoAction {
+export interface AddTodoAction extends AnyAction {
   type: typeof ADD_TODO;
   payload: {
     article: string;
@@ -24,7 +25,7 @@ export const addTodo = (
   },
 });
 
-export interface LoadAlbumsAction {
+export interface LoadAlbumsAction extends AnyAction {
   type: typeof LOAD_ALBUMS;
   payload: {};
 }
@@ -33,7 +34,7 @@ export const loadAlbums = (): LoadAlbumsAction => ({
   payload: {},
 });
 
-export interface LoadSuccessAction {
+export interface LoadSuccessAction extends AnyAction {
   type: typeof LOAD_SUCCESS;
   payload: { article: any[] };
 }

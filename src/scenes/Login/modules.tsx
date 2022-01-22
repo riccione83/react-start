@@ -1,3 +1,4 @@
+import { AnyAction } from "redux";
 import { takeEvery, all } from "redux-saga/effects";
 import { createSelector } from "reselect";
 
@@ -5,8 +6,10 @@ const moduleName = "loginModule";
 
 export const LOGIN = "LOGIN";
 export const LOGIN_ERROR = "LOGIN_ERROR";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGOUT = "LOGOUT";
 
-export interface LoginAction {
+export interface LoginAction extends AnyAction {
   type: typeof LOGIN;
   payload: {
     userName: string;
@@ -24,6 +27,32 @@ export const login = (
   },
 });
 
+interface LoginSuccessAction extends AnyAction {
+  type: typeof LOGIN_SUCCESS;
+  payload: {
+    userName: string;
+  };
+}
+
+export const loginSuccess = (
+  userName: LoginSuccessAction["payload"]["userName"]
+): LoginSuccessAction => ({
+  type: LOGIN_SUCCESS,
+  payload: {
+    userName,
+  },
+});
+
+interface LogoutAction extends AnyAction {
+  type: typeof LOGOUT;
+  payload: {};
+}
+
+export const logout = () => ({
+  type: LOGOUT,
+  payload: {},
+});
+
 interface State {
   loading: boolean;
   userId?: string;
@@ -34,7 +63,7 @@ const initialState = {
   userId: undefined,
 };
 
-type Action = LoginAction;
+type Action = LoginAction | LoginSuccessAction | LogoutAction;
 
 export const getState = (state: any): State =>
   state[moduleName] || initialState;
@@ -46,6 +75,19 @@ function reducer(state: State = initialState, action: Action) {
     case LOGIN:
       return {
         ...state,
+        loading: true,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        userId: undefined,
+        loading: false,
+      };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        userId: action.payload.userName,
+        loading: false,
       };
     default:
       return state;

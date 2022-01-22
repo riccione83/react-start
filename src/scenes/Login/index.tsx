@@ -1,7 +1,11 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { loginSuccess } from "./modules";
 
 const LoginComponent: React.FC = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   return (
     <div>
       <div>
@@ -9,7 +13,14 @@ const LoginComponent: React.FC = () => {
           <input placeholder={"Username"} onChange={(text) => {}} />
           <input placeholder={"Password"} onChange={(text) => {}} />
         </div>
-        <button onClick={(btn) => {}}>Login!</button>
+        <button
+          onClick={(btn) => {
+            dispatch(loginSuccess("user"));
+            history.push("/home");
+          }}
+        >
+          Login!
+        </button>
       </div>
     </div>
   );
