@@ -6,25 +6,8 @@ import { AnyAction } from "redux";
 
 const moduleName = "homeModule";
 
-export const ADD_TODO = "ADD_TODO";
 export const LOAD_ALBUMS = "LOAD_ALBUMS";
 export const LOAD_SUCCESS = "LOAD_SUCCESS";
-
-export interface AddTodoAction extends AnyAction {
-  type: typeof ADD_TODO;
-  payload: {
-    article: string;
-  };
-}
-export const addTodo = (
-  article: AddTodoAction["payload"]["article"]
-): AddTodoAction => ({
-  type: ADD_TODO,
-  payload: {
-    article,
-  },
-});
-
 export interface LoadAlbumsAction extends AnyAction {
   type: typeof LOAD_ALBUMS;
   payload: {};
@@ -55,7 +38,7 @@ const initialState = {
   articles: [],
 };
 
-type Action = AddTodoAction | LoadAlbumsAction | LoadSuccessAction;
+type Action = LoadAlbumsAction | LoadSuccessAction;
 
 export const getState = (state: any): State =>
   state[moduleName] || initialState;
@@ -64,11 +47,6 @@ export const getAlbums = createSelector(getState, (state) => state.articles);
 
 function reducer(state: State = initialState, action: Action) {
   switch (action.type) {
-    case ADD_TODO:
-      return {
-        ...state,
-        articles: [...state.articles, action.payload.article],
-      };
     case LOAD_ALBUMS:
       return {
         ...state,
@@ -84,14 +62,6 @@ function reducer(state: State = initialState, action: Action) {
   }
 }
 
-export const saveHistorySaga = takeEvery(
-  ADD_TODO,
-  function* ({ payload }: AddTodoAction) {
-    // const data = yield call(getData);
-    yield console.log("Not implemented");
-  }
-);
-
 export const loadAlbumsSaga = takeEvery(
   LOAD_ALBUMS,
   function* ({ payload }: LoadAlbumsAction) {
@@ -101,7 +71,7 @@ export const loadAlbumsSaga = takeEvery(
 );
 
 export function* HomeSagas() {
-  yield all([loadAlbumsSaga, saveHistorySaga]);
+  yield all([loadAlbumsSaga]);
 }
 
 export default reducer;

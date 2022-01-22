@@ -3,20 +3,18 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { getUserId, logout } from "../Login/modules";
 import AlbumListComponent from "./components/Articles";
-import { addTodo, getAlbums, loadAlbums } from "./modules";
+import { getAlbums, loadAlbums } from "./modules";
 
 const HomeComponent: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-
   const [numberOfItems, setMaxNumberOfItems] = useState(10);
-
-  const add = (str: string) => dispatch(addTodo(str));
   const albums = useSelector(getAlbums);
   const userId = useSelector((s) => getUserId(s));
 
-  //If no user id is set, go back to login
-
+  // TODO - Implement the logic to fetch the albums from the server
+  // using the userid from the login module. This means fetch only the albumns
+  // for the user that is logged in.
   useEffect(() => {
     if (!userId) {
       history.push("/login");
@@ -40,16 +38,7 @@ const HomeComponent: React.FC = () => {
             Show more...
           </div>
         )}
-        <div style={{ marginTop: 16 }}>
-          <input placeholder={"Insert a new album"} onChange={(text) => {}} />
-        </div>
-        <button
-          onClick={(btn) => {
-            add(btn.currentTarget.value);
-          }}
-        >
-          ADD
-        </button>
+
         <button
           style={{ marginTop: 16 }}
           onClick={(btn) => {
